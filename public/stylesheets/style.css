@@ -1,8 +1,433 @@
 body {
   padding: 50px;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: linear-gradient(
+    45deg, 
+    #ffffff 25%,
+    #faad13 25%, #faad13 50%,
+    #ffffff 50%, #ffffff 75%,
+    #faad13 75%, #faad13 100%
+  );
+  background-size: 120px 120px; 
+
+  overflow: scroll;
+  overflow: hidden visible;/*スクロールバ-*/
+
+  
+}
+/*オープニングアニメーション*/
+.shutter{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color:#1B435D;
+  z-index:9999;
+
+  -webkit-animation: byeShutter 2.3s forwards;
+  animation: byeShutter 2.3s forwards;
+}
+
+.shutter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #fff;
+  width: 0;
+  height: 1px;
+
+  -webkit-animation: shutterOpen 2.0s forwards;
+  animation: shutterOpen 2.0s forwards;
+}
+
+.content {
+  -webkit-animation: contentScale 2.0s forwards;
+          animation: contentScale 2.0s forwards;
+}
+h4 {
+  color:#fff;
+  text-align:center;
+  padding: 20%;
+  font-size: 50px;
+}
+
+@keyframes byeShutter {
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
+}
+
+@keyframes shutterOpen {
+  0% {
+    width: 0;
+    height: 1px;
+  }
+  50% {
+    width: 100%;
+    height: 1px;
+  }
+  90% {
+    width: 100%;
+    height: 100%;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes contentScale {
+  70% {
+    -webkit-transform: perspective(800px) scale(0.9) rotateX(15deg);
+            transform: perspective(800px) scale(0.9) rotateX(15deg);
+  }
+  100% {
+    -webkit-transform: perspective(800px) scale(1) rotateX(0);
+            transform: perspective(800px) scale(1) rotateX(0);
+  }
+}
+
+/*ハンバーガメニューの作成*/
+
+.menu-btn { 
+  position: fixed;
+  top: 10px; /*位置の調整*/
+  right: 0px;
+  left: 10px;
+  display: flex;
+  height: 40px; /*アイコンの大きさをいじる*/
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+  background-color: #3584bb;
+}
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  position: absolute;
+}
+.menu-btn span:before {
+  bottom: 8px;
+}
+.menu-btn span:after {
+  top: 8px;
+}
+
+
+#menu-btn-check:checked ~ .menu-btn span {
+    background-color: rgba(255, 255, 255, 0);/*メニューオープン時は真ん中の線を透明にする*/
+}
+#menu-btn-check:checked ~ .menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+#menu-btn-check:checked ~ .menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+#menu-btn-check { /*確認用チェックボタンの透明化*/
+    display: none;
+}
+
+.menu-content { /*メニューバーの作成*/
+  width: 10%;/*メニューの背景の大きさ*/
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 80;
+  background-color: #3584bb;
+}
+.menu-content ul {
+  padding: 50px 10px 0; /*メニューの大きさ*/
+}
+.menu-content ul li {
+  border-bottom: solid 1px #ffffff;
+  list-style: none;
+}
+.menu-content ul li a { /*矢印の調整*/
+  display: block;
+  width: 100%;
+  font-size: 15px;
+  box-sizing: border-box;
+  color:#ffffff;
+  text-decoration: none;
+  padding: 9px 15px 10px 0;
+  position: relative;
+}
+.menu-content ul li a::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-top: solid 2px #ffffff;
+  border-right: solid 2px #ffffff;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 11px;
+  top: 16px;
+}
+
+.menu-content {
+  width: 10%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 100%;/*leftの値を変更してメニューを画面外へ*/
+  z-index: 80;
+  background-color: #3584bb;
+  transition: all 0.5s;/*アニメーション設定*/
+}
+
+#menu-btn-check:checked ~ .menu-content {
+  left: 0;/*メニューを画面内へ*/
+}
+
+
+/*メニュー作成終わり*/
+
+/*設定*/
+.modal-panel-ttl {
+  text-align: center;
+}
+
+.modal-panel-back {
+  position: fixed;
+  width: 100%;
+  height: 100%;  
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(200,200,200,.5);
+}
+.modal-panel-back.disable {
+  display: none;
+}
+
+/*ボックスの位置*/
+.modal-panel {
+  width: 600px;
+  background-color: white;
+  padding: 30px;
+  margin: 100px auto;
+}
+
+/*チェックボックスの位置*/
+.check-init {
+  text-align: center;
+}
+
+.modal_text {
+  text-align: center;
+}
+
+/*Addのとこ*/
+.searchform {
+  display: table;
+  position: relative;
+}
+
+.searchform_button:hover {
+  cursor: pointer;
+}
+
+.searchform_check {
+  display: none;
+}
+
+.searchform_check:checked + .searchform_popup {
+    bottom: -100%;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+.kensaku {
+ background-color: #ffffff; 
+}
+
+/*h１タグの周囲の色*/
+.white{
+  padding: 2px;
+  padding-left: 10px;
+  padding-bottom: 0.01px;
+  padding-top: 1px;
+  background-color: #4ed8d8; 
+}
+
+h1 {
+  position: relative;
+  padding-left: 25px;
+}
+
+h1:before {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: solid 15px transparent;
+  border-bottom: solid 15px rgb(0, 0, 0);
+}
+
+h1:after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 10px;
+
+  /* widthで線の長さを変える */
+  width: 200px;
+
+  border-bottom: solid 3px rgb(0, 0, 0);
+}
+.update-form {
+  padding: 2px;
+  padding-left: 10px;
+  padding-bottom: 0.01px;
+  padding-top: 1px;
+  background-color: #f4d1e0; 
+}
+
+h2 {
+  position: relative;
+  padding-left: 25px;
+}
+
+h2:before {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: solid 15px transparent;
+  border-bottom: solid 15px rgb(0, 0, 0);
+}
+
+h2:after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 10px;
+
+  /* widthで線の長さを変える */
+  width: 215px;
+
+  border-bottom: solid 3px rgb(0, 0, 0);
+}
+
+.uldezain{
+  background-color: #fffd6a;
+  padding: 2px;
+  padding-left: 10px;
+  padding-bottom: 0.01px;
+  padding-top: 1px;
+}
+
+
+h3 {
+  position: relative;
+  padding-left: 30px;
+}
+
+h3:before {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: solid 15px transparent;
+  border-bottom: solid 15px rgb(0, 0, 0);
+}
+
+h3:after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 15px;
+
+  /* widthで線の長さを変える */
+  width: 215px;
+
+  border-bottom: solid 3px rgb(0, 0, 0);
+}
+
+.row {
+  background-color: gainsboro;
+}
+
+p{
+  margin-bottom: 20px;
+}
+
+.p1{
+  margin-bottom: 40px;
 }
 
 a {
   color: #00b7ff;
 }
+
+.cancel{
+  background-color: white;
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+.create-task{
+  background-color: white;
+}
+
+.task_submit{
+  background-color: white;
+  margin: 1rem;
+}
+
+.updete-button {
+  background-color: white;
+}
+
+.delete {
+  background-color: white;
+}
+
+
+.updete-task{
+  background-color: white;
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+.cancel-updata{
+  margin-left:75%;
+
+}
+
+.updete-task1{
+  background-color: white;
+}
+

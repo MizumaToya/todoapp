@@ -56,3 +56,22 @@ const httpDelete = async function (url) {
   }
 };
 
+function showUserWeekDay() {
+  // 曜日の配列を作る
+  var WeekChars = [ "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日" ];
+
+  // ユーザの入力を得る
+  var inputYear = document.getElementById("userYear").value;
+  var inputMonth = document.getElementById("userMonth").value;
+  var inputDate = document.getElementById("userDate").value;
+
+  // 入力された数値から日付オブジェクトを作る
+  var userDate = new Date( inputYear, inputMonth-1, inputDate );
+
+ // 日付と曜日を表示する
+  // alert("指定された「" + 
+  //    userDate.getFullYear() + "年" + 
+  //    (userDate.getMonth()+1) + "月" + 
+  //    userDate.getDate() + "日」は、" + 
+  //    WeekChars[userDate.getDay()] + "です。");
+}

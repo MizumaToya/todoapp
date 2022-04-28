@@ -16,45 +16,326 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../stylesheets/style.css" />
-
+    
+    <div class="shutter"><h4>Loding…</h4></div>
+ 
+    <section class="container">
+      <!-- ここにメインコンテンツ -->
+    </section>
+    <!--タブ名-->
+ 
     <title>Todoアプリ</title>
   </head>
+<!--メニュー-->
+  <header>
+      <div class="hamburger-menu">
+          <input type="checkbox" id="menu-btn-check">
+          <label for="menu-btn-check" class="menu-btn"><span></span></label>
+          <div class="menu-content">
+            <ul>
+                <li>
+                    <a href="http://localhost:3333/views">Home</a>
+                </li>
+                <li>
+                    <a href="https://service.huddler.app/blog/todo-app/#:~:text=ToDo%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AF,%E5%BE%B4%E3%81%8C%E7%95%B0%E3%81%AA%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82">info</a>
+                </li>
+                <li>
+                  <div class="panel">
+                    <a class="c-btn js-open-modal" href="#">setting</a>
+                    <div class="modal-panel-back disable">
+                        <div class="modal-panel">
+                            <div class="modal-panel-ttl"> <strong>設定画面</strong></div>
+                            <p>
+                            <div  class="check-item-area row">
+                                <div class="col-sm-6 check-item">
+                                  <div class="modal_text">
+                                  <span>スマートフォンのサイズに変更</span>
+                                  &nbsp;<!--間隔を空ける-->
+                                    <label><input type="checkbox" class="check-init"></label>
+                                  </div>
+
+                                </div>
+                                </div>
+                              </p>
+                            </div>
+                        </div>
+                    </div>    
+                </li>
+            </ul>
+        </div>
+      </div>
+  </header>
+
+
+
+  <!--button等の配置-->
   <body>
-    <div class="container">
-      <h1><strong>Todo List</strong></h1>
-      <input class = "task_value" type="text" style="text-align:left;"> <!--ここのクラスはCSSでフォントを変えることができる-->
-      <button class="task_submit" type="button">Add Task</button>
-      <!-- Content here -->
+    <div class="container"> <!--bootを追加-->
+      <div class="white">
+        <p> <!--空行を入れるためPタグを追加-->
+          <h1><strong>Todo List</strong></h1>
+          
+          <!--          <label for="searchform_flag" class="searchform_button"><span class="magnifying_glass"></span></label>
+                        <input type="checkbox" id="searchform_flag" class="searchform_check">
+          -->
+          
+          <div class="searchform_popup">
+              <form method="get" action="">
+                  <input type="text" value="" name="s">
+                  <input class="kensaku" id="kensaku" type="submit" value="検索">
+
+                  &nbsp;<!--間隔を空ける-->
+                  &nbsp;
+                  &nbsp;        
+                  &nbsp;   
+                  
+                  <button class="task_submit"  id = "Add Task" type="button">+ タスクの追加</button>
+
+              </form>
+          </div>
+          
+
+
+          <!--
+          <input type="text" id="userYear">年
+          <input type="text" id="userMonth">月
+          <input type="text" id="userDate">日
+          <input type="button" value="上記の日付の曜日を調べる" onclick="showUserWeekDay();" />-->
+          <p> <!--二回改行-->
+        </p>
+        </p>
+      </div>
+
+      <!--タスクのリストの表示-->
+
+
+      <!--　一覧表　-->
+      <p>
+      <div class="update-form" id="update-form" style="display: none">
+        <p><h2><strong>タスクの更新</strong></h2>
+        <form >
+            <label for="status"><strong>進捗状況</strong></label>
+            <select id="status" name="status">
+              <option value="1">未実施</option>
+              <option value="2">作業中</option>
+              <option value="3">完了</option>
+            </select>
+
+          &nbsp;<!--間隔を空ける-->
+          &nbsp;
+          &nbsp;
+          <label for="deadline"><strong>期限</strong></label>
+          <input type="date" id="deadline" name="deadline" /> <!--datetime-location-->
+
+          &nbsp;<!--間隔を空ける-->
+          &nbsp;
+          &nbsp;
+
+          <label for="category"><strong>カテゴリ</strong></label>
+          <select id="category" name="category">
+            <option value="1">生活</option>
+            <option value="2">勉強</option>
+            <option value="3">仕事</option>
+            <option value="4">趣味</option>
+            <option value="5">予定</option>
+          </select>
+          &nbsp;<!--間隔を空ける-->
+          &nbsp;
+          &nbsp;
+
+          <label for="taskName"><strong>タスク名</strong></label>
+          <input type="text" id="taskName" name="taskName" />
+        </form>
+
+        <p>
+          <div class="cancel-updata">
+          <button class="updete-task" id="update-task" >保存</button>
+
+          &nbsp;<!--間隔を空ける-->
+          &nbsp;
+          &nbsp;
+
+          <button class="cancel">キャンセル</button>
+        </div>
+        </p>
+      </p>
+      </div>
+    </p>
+
+    <div class="uldezain">
+      <p>
+        <h3><strong>タスクの一覧表</strong></h3>
+      </p>
+      <p>
+      <ul id="task-list"></ul>
+    </p>
+
     </div>
 
+    </div>
+  
     
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
 
+  <script>
+   $(function(){
+       $('.modal-panel-back').on('click', function(){
+            $(this).addClass('disable');
+        })
+   })
+</script>
+
+<script>
+  $(function(){
+      $('.modal-panel').on('click', function(e){
+           e.stopPropagation();
+       })
+  })
+</script>
+
+        <script>
+
+      // タスク追加ボタン
+      $(".task_submit").on("click", async function () {
+        $("#update-form").show();
+        const requestData = {
+          task_name: $("#update-form input[name=task]").val(),
+          deadline: $("#update-form input[name=deadline]").val(),
+          category: $("#update-form select[name=category]").val(),
+        }
+      });
+
+      $(async function () {
+        const response = await httpGet(
+        "//" + window.location.host + "/api/tasks",
+      );
+      
+      //mapを使ったliタグ
+      const list = response.map((item) =>  {
+        console.log(item);
+        return `
+          <li>
+            <span>${item.task_status}</span>
+            <span>${item.category_id}</span>
+            <span>${item.task_name}</span>
+            <span>${item.deadline}</span>
+
+            &nbsp;<!--間隔を空ける-->
+            &nbsp;
+            &nbsp;
+
+            <span><button class = "updete-task1" id ="updete-button" type = "button" data-id = ${item.id}>更新</button></span>
+
+            &nbsp;<!--間隔を空ける-->
+            &nbsp;
+            &nbsp;
+
+            <span><button class ="delete" id ="delete"  type = "button" style="color:red" data-id=${item.id} data-delete=${item.task_name}>削除</button></span>
+          </li>`;
+            
+      });
+        console.log(list);
+      $("ul#task-list").append(list);
+    });
+
+      // 更新ボタン
+      $(document).on("click",".updete-task1",  async function () {
+        $("#update-form").show();
+        const id = $(this).data("id");
+        console.log( "//" + window.location.host + `/api/tasks/${id}`);
+        const response = await httpGet(
+          "//" + window.location.host + `/api/tasks/${id}`
+        )
+        
+
+        //日付
+        const date = new Date(response[0].deadline);
+        const year = date.getFullYear();
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const day = ("0" + date.getDate()).slice(-2);
+        //time
+        const deadlineVal = `${year}-${month}-${day}`;
+
+        //初期値をセット
+        $("#update-form input[name=id]").val(response[0].id);
+        $("#update-form input[name=taskName]").val(response[0].task_name);
+        $("#update-form input[name=deadline]").val(deadlineVal);
+        $("#update-form select[name=category]").val(response[0].category_id);
+        $("#update-form select[name=status]").val(response[0].task_status);
+        $("#update-task").data('id', id);
+        
+      });
+
+      //保存ボタンの追加
+      $("#update-task").on("click",async function() {
+        console.log("aaa")
+        const id = $(this).data('id');
+
+        //リクエストデータをフォームから取得
+        const requestData = {
+          taskName:$("#update-form input[name=taskName]").val(),
+          deadline:$("#update-form input[name=deadline]").val(),
+          category:$("#update-form select[name=category]").val(),
+          status:$("#update-form select[name=status]").val(),
+           
+        };
+        console.log(id);
+
+        const response = await httpUpdate(
+          "//" + window.location.host + `/api/tasks/${id}`,
+          requestData
+        );
+
+        window.location.reload();
+
+      } );
+
+      // 削除ボタン押下時
+      $(document).on("click",".delete", async function () {
+        const taskName = $(this).data("delete");
+        if (confirm(`下記の内容を削除します。\n ${taskName}`)) {
+          const id = $(this).data("id") ;
+
+          //削除API実行
+          const response = await httpDelete(
+            "//" + window.location.host + `/api/tasks/${id}`
+          );
+
+          
+          window.location.reload();
+        }
+        });
+
+
+      // フォームを閉じたいとき
+      $(".cancel").on("click", function () {
+        $("#task_value").hide();
+        $("#update-form").hide();
+      });
+
+      //setting画面
+      $(function(){
+       $('.js-open-modal').on('click', function(){
+           $(this).next().removeClass('disable');
+       });
+       $('.js-close-modal').on('click', function(e){
+           e.preventDefault();
+           $(this).parents('.modal-panel-back').addClass('disable');
+       })
+   })
+
+   
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-
+   
     <script src = "../javascripts/index.js"></script>
     
-
-    <script>
-      $("create-task").on("click", async function() {
-        const data = {
-          taskName: $("[name=task]").val(),
-          deadline: $("[name=deadline]").val(),
-          category: $("[name=category]").val(),
-        };
-        const response = await httpPost(
-          "//" + window.location.host + "/api/tasks/",
-          data
-        );
-        console.log(response);      
-      });
-    </script>
 
 <script>
   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
